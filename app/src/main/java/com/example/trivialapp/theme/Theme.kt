@@ -1,4 +1,4 @@
-package com.example.trivialapp.ui.theme
+package com.example.trivialapp.theme
 
 import android.app.Activity
 import android.os.Build
