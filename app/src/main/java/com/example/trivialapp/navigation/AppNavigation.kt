@@ -4,8 +4,8 @@ import androidx.compose.runtime.Composable
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-import com.example.trivialapp.ui.MainScreen
 import com.example.trivialapp.ui.SplashScreen
+import com.example.trivialapp.ui.myDropDownmenuDificultad
 
 @Composable
 fun AppNavigation (){
@@ -15,8 +15,9 @@ fun AppNavigation (){
             SplashScreen(navController)
         }
         composable (AppScreen.MainScreen.route){
-            MainScreen(navController)
+            myDropDownmenuDificultad(navController)
         }
+
 
     }
 }

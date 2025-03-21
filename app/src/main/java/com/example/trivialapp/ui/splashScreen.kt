@@ -3,15 +3,21 @@ package com.example.trivialapp.ui
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.size
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.paint
+import androidx.compose.ui.graphics.BlurEffect
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import androidx.navigation.NavHostController
 import com.example.trivialapp.R
@@ -32,27 +38,28 @@ fun SplashScreen(navController: NavHostController) {
 @Composable
 
 fun Splash() {
-    Column(
-        Modifier
-            .fillMaxSize()
-            .background(Color.DarkGray),
-        horizontalAlignment = Alignment.CenterHorizontally,
-        verticalArrangement = Arrangement.Center,
-
-        )
-    {
+    Box(
+        modifier = Modifier.fillMaxSize()
+    ) {
+        // Imagen de fondo desenfocada
         Image(
-            painter = painterResource(id = R.drawable.logoapp),
-            contentDescription = "logoAppTrivial",
-            modifier = Modifier.fillMaxSize(0.9F),
-            contentScale = ContentScale.Fit // pa que no se me deforme la imagen
+            painter = painterResource(id = R.drawable.fondo),
+            contentDescription = null,
+            contentScale = ContentScale.Crop,
+            modifier = Modifier
+                .matchParentSize()
+                .graphicsLayer {
+                    renderEffect = BlurEffect(20f, 20f) // Ajusta el desenfoque
+                }
         )
-        /*Text(
-            "Bienvenidos al Trivial",
-            fontSize = 30.sp,
-            fontWeight = FontWeight.ExtraLight,
-            color = Color.Red
-        )*/
 
+        // Logo centrado encima del fondo
+        Image(
+            painter = painterResource(id = R.drawable.logo),
+            contentDescription = "Logo",
+            modifier = Modifier
+                .align(Alignment.Center)
+                .size(500.dp) // Ajusta el tamaño del logo
+        )
     }
 }
