@@ -1,4 +1,4 @@
-package com.example.trivialapp.ui
+package com.example.trivialapp.screens
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -10,6 +10,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.size
+import androidx.compose.material3.Button
 import androidx.compose.material3.DropdownMenu
 import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.OutlinedTextField
@@ -28,8 +29,9 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.navigation.NavHostController
+import androidx.navigation.NavController
 import com.example.trivialapp.R
+import com.example.trivialapp.navigation.Pantalla
 
 /*@Composable
 fun MainScreen(navController: NavHostController){
@@ -43,14 +45,11 @@ fun MainScreen(navController: NavHostController){
 
 
 @Composable
-fun myDropDownmenuDificultad(navController: NavHostController){
-    var selectedText: String by remember { mutableStateOf("") }
+fun MyDropDownmenuDificultad(navController :NavController){
+    var selecteDificultad: String by remember { mutableStateOf("Facil") }
     var expanded by remember { mutableStateOf(false) }
     val dificultades= listOf("Facil","Media","Experto")
 
-    val eleccion :String by remember { mutableStateOf("") }
-
-    var showText: Boolean by remember { mutableStateOf(false) }
     Column(
         Modifier.fillMaxSize().background(Color.Black),
         horizontalAlignment = Alignment.CenterHorizontally,
@@ -62,10 +61,10 @@ fun myDropDownmenuDificultad(navController: NavHostController){
     ) {
         Image(
             painter = painterResource(id = R.drawable.chefita),
-    contentDescription = "Fondo",
+            contentDescription = "Fondo",
             modifier = Modifier.size(500.dp),
             contentScale = ContentScale.Fit
-)
+        )
         Text(
             "Dificultad",
             color = Color.Yellow,
@@ -73,9 +72,11 @@ fun myDropDownmenuDificultad(navController: NavHostController){
             fontSize = 40.sp,
             textAlign = TextAlign.Center
         )
+        Spacer(modifier = Modifier.height(16.dp))
+
         OutlinedTextField(
-            value = selectedText,
-            onValueChange = { selectedText = it },
+            value = selecteDificultad,
+            onValueChange = { selecteDificultad = it },
             enabled = false,
             readOnly = true,
             modifier = Modifier
@@ -89,12 +90,22 @@ fun myDropDownmenuDificultad(navController: NavHostController){
             modifier = Modifier.fillMaxWidth()
         ) {
             dificultades.forEach { opcion ->
-                DropdownMenuItem(text = { Text(opcion)}, onClick = {
+                DropdownMenuItem(text = { Text(opcion) }, onClick = {
+                    selecteDificultad = opcion.trim()
                     expanded = false
-                    selectedText = opcion.trim()
                 })
 
             }
+        }
+        Spacer(modifier = Modifier.height(24.dp))
+
+        Button(
+            onClick = {
+                navController.navigate(Pantalla.Pantalla3.createRoute(selecteDificultad))
+            },
+            modifier = Modifier.fillMaxWidth()
+        ) {
+            Text("comenzar")
         }
     }
 

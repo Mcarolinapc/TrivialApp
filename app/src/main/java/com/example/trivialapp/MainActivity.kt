@@ -1,13 +1,11 @@
-package com.example.trivialapp.ui
+package com.example.trivialapp
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
-import androidx.compose.runtime.Composable
-import androidx.compose.ui.tooling.preview.Preview
 import com.example.trivialapp.navigation.AppNavigation
-import com.example.trivialapp.theme.TrivialAppTheme
+import com.example.trivialapp.ui.theme.TrivialAppTheme
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {

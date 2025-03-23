@@ -1,4 +1,4 @@
-package com.example.trivialapp.theme
+package com.example.trivialapp.ui.theme
 
 import androidx.compose.ui.graphics.Color
 
