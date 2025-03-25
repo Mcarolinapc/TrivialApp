@@ -2,4 +2,11 @@
 <resources>
 
     <style name="Theme.TrivialApp" parent="android:Theme.Material.Light.NoActionBar" />
+
+    <style name="Theme.MySplashScreen" parent="Theme.SplashScreen">
+        <item name="windowSplashScreenAnimatedIcon">@drawable/fondo</item>
+        <item name="postSplashScreenTheme">@style/Theme.TrivialApp</item>
+    </style>
 </resources>
+
+

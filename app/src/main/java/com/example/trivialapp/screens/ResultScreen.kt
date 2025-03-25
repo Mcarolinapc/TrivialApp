@@ -16,18 +16,16 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
-import com.example.trivialapp.navigation.Pantalla
 
 @Composable
-fun Resultado(navController: NavController) {
-    // Aquí solo mostramos un texto y un botón para navegar atrás
+fun Resultado(resultado: String, navigateToNext: () -> Unit) {
     Column(
         modifier = Modifier.fillMaxSize(),
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Center
     ) {
         Text(
-            text = "tú Puntuacion",
+            text = "Tu Puntuación: $resultado",
             fontSize = 30.sp,
             fontWeight = FontWeight.Bold,
             color = Color.Black
@@ -35,7 +33,9 @@ fun Resultado(navController: NavController) {
 
         Spacer(modifier = Modifier.height(20.dp))
 
-        Button(onClick = {}) {
+        Button(onClick = {
+            // Acción de compartir si es necesario
+        }) {
             Text("Share")
         }
 
@@ -43,12 +43,11 @@ fun Resultado(navController: NavController) {
 
         Button(
             onClick = {
-                // Vuelve a la pantalla anterior (Pantalla2) usando popBackStack()
-                navController.popBackStack(Pantalla.Pantalla2.route, false)
+                navigateToNext()
             },
             modifier = Modifier.fillMaxWidth()
         ) {
-            Text("Volver a Pantalla 2")
+            Text("Volver a Pantalla1")
         }
     }
 }

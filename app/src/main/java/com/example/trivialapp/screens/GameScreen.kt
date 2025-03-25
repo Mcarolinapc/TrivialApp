@@ -8,61 +8,69 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Button
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.livedata.observeAsState
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewmodel.compose.viewModel
-import androidx.navigation.NavController
-import com.example.trivialapp.PreguntasViewModelFactory
-import com.example.trivialapp.navigation.Pantalla
-import com.example.trivialapp.viewmodel.PreguntasView
+import com.example.trivialapp.viewmodel.PreguntasViewModelFactory
+import com.example.trivialapp.viewmodel.PreguntasViewModel
 
 
 @Composable
-fun Game(navController: NavController, dificultad: String) {
-    val viewModel: PreguntasView = viewModel(
-        factory = PreguntasViewModelFactory(dificultad)
-    )
-    val pregunta = viewModel.preguntaActual.value
-    Box(
-        modifier = Modifier.fillMaxSize() // Asegura que el Box ocupe toda la pantalla
-    ) {
+fun Game(dificultad: String, navigateToNext: (String) -> Unit) {
+    val viewModel: PreguntasViewModel = viewModel(factory = PreguntasViewModelFactory(dificultad))
+    val pregunta by viewModel.preguntaActual.observeAsState()
+    val puntaje by viewModel.puntuacion.observeAsState(0)
+    val juegoTerminado by viewModel.juegoTerminado.observeAsState(false)
+
+    if(juegoTerminado){
+        navigateToNext (puntaje.toString())
+    }
+
+    Box(modifier = Modifier.fillMaxSize()) {
         Column(
             modifier = Modifier
-                .align(Alignment.Center) // Centra las preguntas y respuestas
+                .align(Alignment.Center)
                 .padding(16.dp)
         ) {
+            Text("llevas $puntaje" , color = Color.Yellow)
+            Text(
+                text = pregunta?.pregunta ?: "",
+                fontSize = 24.sp,
+                fontWeight = FontWeight.Bold,
+                modifier = Modifier.padding(bottom = 16.dp),
+                color = Color.Yellow
 
-            Text(text = pregunta.pregunta)
+            )
 
-            // Aquí mostraríamos las respuestas como botones
-            Button(onClick = { /* Acción de respuesta correcta */ }) {
-                Text(pregunta.respuesta1)
-            }
-            Button(onClick = { /* Acción de respuesta incorrecta */ }) {
-                Text(pregunta.respuesta2)
-            }
-            Button(onClick = { /* Acción de respuesta incorrecta */ }) {
-                Text(pregunta.respuesta3)
-            }
-            Button(onClick = { /* Acción de respuesta incorrecta */ }) {
-                Text(pregunta.respuesta4)
-            }
+            // Botones de respuesta
+            Button(onClick = {
+                viewModel.validarRespuesta(pregunta!!.respuesta1)
+                //viewModel.cargarPregunta()
+            }) { Text(pregunta?.respuesta1 ?: "") }
+
+            Button(onClick = {
+                viewModel.validarRespuesta(pregunta!!.respuesta2)
+                //viewModel.cargarPregunta()
+            }) { Text(pregunta?.respuesta2 ?: "") }
+
+            Button(onClick = {
+                viewModel.validarRespuesta(pregunta!!.respuesta3)
+            }) { Text(pregunta?.respuesta3 ?: "") }
+
+            Button(onClick = {
+                viewModel.validarRespuesta(pregunta!!.respuesta4)
+            }) { Text(pregunta?.respuesta4 ?: "") }
         }
     }
 
-    // Coloca el botón en la parte inferior
-    Button(
-        onClick = {
-            navController.navigate(Pantalla.Pantalla4.route)
-        },
-        modifier = Modifier  // Esto alinea el botón en la parte inferior
-            .fillMaxWidth()
-            .padding(16.dp)  // Agrega un poco de padding para que no quede pegado a los bordes
-    ) {
-        Text("Resultado")
-    }
+    // Botón para finalizar el juego y enviar solo el resultado
 }

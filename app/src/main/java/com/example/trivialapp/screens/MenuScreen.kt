@@ -31,7 +31,6 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.example.trivialapp.R
-import com.example.trivialapp.navigation.Pantalla
 
 /*@Composable
 fun MainScreen(navController: NavHostController){
@@ -45,7 +44,7 @@ fun MainScreen(navController: NavHostController){
 
 
 @Composable
-fun MyDropDownmenuDificultad(navController :NavController){
+fun MyDropDownmenuDificultad(navigateToNext :(String)->Unit){
     var selecteDificultad: String by remember { mutableStateOf("Facil") }
     var expanded by remember { mutableStateOf(false) }
     val dificultades= listOf("Facil","Media","Experto")
@@ -101,7 +100,7 @@ fun MyDropDownmenuDificultad(navController :NavController){
 
         Button(
             onClick = {
-                navController.navigate(Pantalla.Pantalla3.createRoute(selecteDificultad))
+                navigateToNext((selecteDificultad))
             },
             modifier = Modifier.fillMaxWidth()
         ) {

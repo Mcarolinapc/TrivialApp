@@ -12,7 +12,9 @@ composeBom = "2024.09.00"
 composeNavigation = "2.8.9"
 runtimeLivedata = "1.7.8"
 serialization = "1.7.3"
+core-splashscreen ="1.0.1"
 [libraries]
+core-splashscreen={group= "androidx.core",name="core-splashscreen",version.ref="core-splashscreen"}
 accompanist-systemuicontroller = { module = "com.google.accompanist:accompanist-systemuicontroller", version.ref = "accompanistSystemuicontroller" }
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
 androidx-lifecycle-viewmodel-compose = { module = "androidx.lifecycle:lifecycle-viewmodel-compose", version.ref = "lifecycleRuntimeKtx" }
