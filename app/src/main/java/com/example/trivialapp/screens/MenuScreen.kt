@@ -4,6 +4,7 @@ import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
@@ -31,31 +32,28 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.example.trivialapp.R
-
-/*@Composable
-fun MainScreen(navController: NavHostController){
-    Column(Modifier.fillMaxSize(),Arrangement.Center,Alignment.CenterHorizontally) {
-        Text("pantallaPrincipal")
-
-
-    }
-}*/
-
-
-
 @Composable
 fun MyDropDownmenuDificultad(navigateToNext :(String)->Unit){
-    var selecteDificultad: String by remember { mutableStateOf("Facil") }
+    var selecteDificultad: String by remember { mutableStateOf("Selecciona dificultad") }
     var expanded by remember { mutableStateOf(false) }
     val dificultades= listOf("Facil","Media","Experto")
+
+    Box(
+        modifier = Modifier
+            .fillMaxSize()
+    ) {
+        // Imagen de fondo
+        Image(
+            painter = painterResource(id = R.drawable.menuscreen),
+            contentDescription = "Fondo",
+            contentScale = ContentScale.Crop,
+            modifier = Modifier.matchParentSize()
+        )
 
     Column(
         Modifier.fillMaxSize().background(Color.Black),
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Center
-
-
-
 
     ) {
         Image(
@@ -90,7 +88,7 @@ fun MyDropDownmenuDificultad(navigateToNext :(String)->Unit){
         ) {
             dificultades.forEach { opcion ->
                 DropdownMenuItem(text = { Text(opcion) }, onClick = {
-                    selecteDificultad = opcion.trim()
+                    selecteDificultad = opcion
                     expanded = false
                 })
 
@@ -109,4 +107,4 @@ fun MyDropDownmenuDificultad(navigateToNext :(String)->Unit){
     }
 
 }
-
+}

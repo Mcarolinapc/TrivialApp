@@ -8,7 +8,3 @@ data class Pregunta(
     val respuesta4: String,
     val respuestaCorrecta: String
 )
-data class Resultado(
-    val puntuacion: Int,  // Puntuación total del usuario
-    val totalPreguntas: Int = 10  // Número total de preguntas
-)
