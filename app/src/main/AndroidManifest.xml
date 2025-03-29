@@ -10,7 +10,7 @@
         android:label="Theme.MySplashScreen"
         android:roundIcon="@drawable/logo"
         android:supportsRtl="true"
-        android:theme="@style/Theme.TrivialApp"
+        android:theme="@style/Theme.MySplashScreen"
         tools:targetApi="31">
         <activity
             android:name=".MainActivity"

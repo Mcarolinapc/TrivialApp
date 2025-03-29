@@ -1,12 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <style name="Theme.TrivialApp" parent="android:Theme.Material.Light.NoActionBar" />
+<style name="Theme.TrivialApp" parent="android:Theme.Material.Light.NoActionBar" />
 
-    <style name="Theme.MySplashScreen" parent="Theme.SplashScreen">
-        <item name="windowSplashScreenAnimatedIcon">@drawable/apprush</item>
-        <item name="postSplashScreenTheme">@style/Theme.TrivialApp</item>
-    </style>
+<style name="Theme.MySplashScreen" parent="Theme.SplashScreen">
+    <!-- Ícono animado (WebP animado en drawable) -->
+    <item name="windowSplashScreenAnimatedIcon">@drawable/animation</item>
+
+    <!-- Color de fondo mientras se muestra el splash -->
+    <item name="windowSplashScreenBackground">@drawable/logo</item>
+
+    <!-- Tema a aplicar después del splash -->
+    <item name="postSplashScreenTheme">@style/Theme.TrivialApp</item>
+</style>
+
 </resources>
+
 
 

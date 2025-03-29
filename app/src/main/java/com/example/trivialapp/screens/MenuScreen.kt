@@ -1,17 +1,23 @@
 package com.example.trivialapp.screens
 
+import android.content.Intent
+import android.net.Uri
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
 import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.DropdownMenu
 import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.OutlinedTextField
@@ -25,6 +31,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
@@ -33,78 +40,114 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.example.trivialapp.R
 @Composable
-fun MyDropDownmenuDificultad(navigateToNext :(String)->Unit){
+fun MyDropDownmenuDificultad(navigateToNext: (String) -> Unit) {
     var selecteDificultad: String by remember { mutableStateOf("Selecciona dificultad") }
     var expanded by remember { mutableStateOf(false) }
-    val dificultades= listOf("Facil","Media","Experto")
+    val dificultades = listOf("Facil", "Media", "Experto")
 
     Box(
-        modifier = Modifier
-            .fillMaxSize()
+        modifier = Modifier.fillMaxSize()
     ) {
-        // Imagen de fondo
+        // Imagen de fondo (centrada)
         Image(
-            painter = painterResource(id = R.drawable.menuscreen),
+            painter = painterResource(id = R.drawable.apprush),
             contentDescription = "Fondo",
             contentScale = ContentScale.Crop,
             modifier = Modifier.matchParentSize()
         )
 
-    Column(
-        Modifier.fillMaxSize().background(Color.Black),
-        horizontalAlignment = Alignment.CenterHorizontally,
-        verticalArrangement = Arrangement.Center
-
-    ) {
+        // Imagen centrada en la parte superior
         Image(
-            painter = painterResource(id = R.drawable.chefita),
-            contentDescription = "Fondo",
-            modifier = Modifier.size(500.dp),
-            contentScale = ContentScale.Fit
-        )
-        Text(
-            "Dificultad",
-            color = Color.Yellow,
-            fontWeight = FontWeight.Bold,
-            fontSize = 40.sp,
-            textAlign = TextAlign.Center
-        )
-        Spacer(modifier = Modifier.height(16.dp))
-
-        OutlinedTextField(
-            value = selecteDificultad,
-            onValueChange = { selecteDificultad = it },
-            enabled = false,
-            readOnly = true,
+            painter = painterResource(id = R.drawable.logo), // Reemplaza con el nombre de tu recurso
+            contentDescription = "Imagen Superior Centrada",
             modifier = Modifier
-                .clickable { expanded = true }
-                .fillMaxWidth().background(Color.DarkGray)
+                .size(200.dp)
+                .align(Alignment.TopCenter)
         )
 
-        DropdownMenu(
-            expanded = expanded,
-            onDismissRequest = { expanded = false },
-            modifier = Modifier.fillMaxWidth()
+
+        // Columna con fondo negro y centrado
+        Column(
+            modifier = Modifier
+                .fillMaxSize()
+                .background(Color.Black.copy(alpha = 0.5f)), // Fondo negro con transparencia
+            horizontalAlignment = Alignment.CenterHorizontally,
+            verticalArrangement = Arrangement.Center
         ) {
-            dificultades.forEach { opcion ->
-                DropdownMenuItem(text = { Text(opcion) }, onClick = {
-                    selecteDificultad = opcion
-                    expanded = false
-                })
+            // Imagen centrada
+            /*Row(
+                modifier = Modifier.fillMaxWidth(),
+                horizontalArrangement = Arrangement.Start // Alinea el contenido a la izquierda
+            ) {
+                Image(
+                    painter = painterResource(id = R.drawable.mich),
+                    contentDescription = "Fondo",
+                    modifier = Modifier.size(200.dp),
+                    contentScale = ContentScale.Fit
+                )
+            }*/
+            Text(
+                "Dificultad",
+                color = Color.Yellow,
+                fontWeight = FontWeight.Bold,
+                fontSize = 40.sp,
+                textAlign = TextAlign.Center
+            )
+            Spacer(modifier = Modifier.height(16.dp))
+
+            OutlinedTextField(
+                value = selecteDificultad,
+                onValueChange = { selecteDificultad = it },
+                enabled = false,
+                readOnly = true,
+                modifier = Modifier
+                    .clickable { expanded = true }
+                    .fillMaxWidth()
+                    .background(Color.DarkGray)
+            )
+
+            DropdownMenu(
+                expanded = expanded,
+                onDismissRequest = { expanded = false },
+                modifier = Modifier.fillMaxWidth()
+            ) {
+                dificultades.forEach { opcion ->
+                    DropdownMenuItem(text = { Text(opcion) }, onClick = {
+                        selecteDificultad = opcion
+                        expanded = false
+                    })
+                }
+            }
+
+            Spacer(modifier = Modifier.height(24.dp))
+
+
+
+            Box(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .clickable {
+                        navigateToNext(selecteDificultad)
+                    }
+                    .padding(16.dp)
+            ) {
+                Image(
+                    painter = painterResource(id = R.drawable.nyoras), // Usar la imagen como botón
+                    contentDescription = "Comenzar",
+                    modifier = Modifier.fillMaxWidth(),
+                    contentScale = ContentScale.Crop
+                )
 
             }
-        }
-        Spacer(modifier = Modifier.height(24.dp))
-
-        Button(
-            onClick = {
-                navigateToNext((selecteDificultad))
-            },
-            modifier = Modifier.fillMaxWidth()
-        ) {
-            Text("comenzar")
+            Text(
+                text = "¡¡haz clic sobre las cocineras para comenzar!!",
+                color = Color.Yellow,
+                fontWeight = FontWeight.Bold,
+                fontSize = 30.sp,
+                modifier = Modifier
+            )
         }
     }
+}
 
-}
-}
+
