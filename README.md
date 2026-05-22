@@ -49,7 +49,7 @@ https://github.com/user-attachments/assets/8da36415-c264-40f1-92ad-30eb04bb0c07
 
   ---
 
-  <h3>📸 Capturas de Pantalla (Estructura Simétrica)</h3>
+  <h3>📸 Capturas de Pantalla</h3>
 
   <div style="display: flex; justify-content: center; gap: 12px; flex-wrap: wrap;">
     <img src="Imagenes/seleccionScreen.jpeg" width="220" alt="Pantalla de Selección de Dificultad">
